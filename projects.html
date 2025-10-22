@@ -44,12 +44,16 @@
     <!-- Projects Header -->
     <section class="projects-header">
         <div class="container">
-            <div class="section-header">
+            <div class="header-content">
                 <h1>My Projects</h1>
                 <p>Explore my portfolio of web applications, mobile apps, and design projects</p>
             </div>
-            
-            <!-- Filter Buttons -->
+        </div>
+    </section>
+
+    <!-- Projects Filter -->
+    <section class="projects-filter">
+        <div class="container">
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
                 <button class="filter-btn" data-filter="web">Web Development</button>
@@ -65,23 +69,9 @@
         <div class="container">
             <div class="projects-grid" id="projects-grid">
                 <!-- Projects will be loaded dynamically -->
-                <div class="loading-container">
-                    <div class="loading"></div>
-                    <p>Loading projects...</p>
-                </div>
             </div>
         </div>
     </section>
-
-    <!-- Project Detail Modal -->
-    <div id="project-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modal-body">
-                <!-- Project details will be loaded here -->
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">

@@ -1,17 +1,15 @@
 // Project Detail Page JavaScript
 
-let currentProjectId = null;
-
 // Initialize Project Detail Page
 function initializeProjectDetailPage() {
     const urlParams = new URLSearchParams(window.location.search);
-    currentProjectId = urlParams.get('id');
+    const projectId = urlParams.get('id');
     
-    if (currentProjectId) {
-        loadProjectDetail(currentProjectId);
-        loadProjectReviews(currentProjectId);
-        initializeRatingSystem(currentProjectId);
-        initializeCommentSystem(currentProjectId);
+    if (projectId) {
+        loadProjectDetail(projectId);
+        loadProjectReviews(projectId);
+        initializeRatingSystem(projectId);
+        initializeCommentSystem(projectId);
     } else {
         // Redirect to projects page if no ID
         window.location.href = 'projects.html';
@@ -259,7 +257,7 @@ function displayProjectComments(comments) {
     if (!container) return;
 
     if (comments.length === 0) {
-        container.innerHTML = '<p>No comments yet. Be the first to review this project!</p>';
+        container.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">No comments yet. Be the first to review this project!</p>';
         return;
     }
 
@@ -272,17 +270,6 @@ function displayProjectComments(comments) {
             <p class="comment-text">${comment.text}</p>
         </div>
     `).join('');
-}
-
-// Get Category Display Name
-function getCategoryDisplayName(category) {
-    const categories = {
-        'web': 'Web Development',
-        'mobile': 'Mobile Apps',
-        'design': 'UI/UX Design',
-        'fullstack': 'Full Stack'
-    };
-    return categories[category] || category;
 }
 
 // Open Image Modal
@@ -309,7 +296,7 @@ function openImageModal(imageUrl) {
     });
 }
 
-// Load Dummy Project Detail (fallback when Firebase is not configured)
+// Load Dummy Project Detail (for when Firebase is not configured)
 function loadDummyProjectDetail(projectId) {
     const dummyProject = {
         id: projectId,
@@ -335,13 +322,13 @@ function loadDummyProjectDetail(projectId) {
         {
             id: '2',
             name: 'Mike Chen',
-            text: 'Great attention to detail and excellent performance. The checkout process is smooth and the admin dashboard is very intuitive. Highly recommended!',
+            text: 'Great attention to detail and excellent performance. Highly recommended! The checkout process is smooth and the admin panel is very intuitive.',
             createdAt: { toDate: () => new Date('2024-01-25') }
         },
         {
             id: '3',
-            name: 'Emily Rodriguez',
-            text: 'This project demonstrates excellent full-stack development skills. The code is clean, well-documented, and the user experience is outstanding.',
+            name: 'Emily Davis',
+            text: 'This project demonstrates excellent technical skills and user experience design. The responsive design works perfectly on all devices.',
             createdAt: { toDate: () => new Date('2024-02-01') }
         }
     ];
@@ -350,4 +337,15 @@ function loadDummyProjectDetail(projectId) {
     
     // Load dummy rating
     displayRatingSummary(4.5, 12);
+}
+
+// Get Category Display Name
+function getCategoryDisplayName(category) {
+    const categories = {
+        'web': 'Web Development',
+        'mobile': 'Mobile Apps',
+        'design': 'UI/UX Design',
+        'fullstack': 'Full Stack'
+    };
+    return categories[category] || category;
 }

@@ -1,4 +1,4 @@
-// Firebase Configuration
+// Firebase Configuration - Replace with your actual Firebase config
 const firebaseConfig = {
     apiKey: "your-api-key-here",
     authDomain: "your-project.firebaseapp.com",
@@ -31,7 +31,6 @@ function initializeApp() {
         currentUser = user;
         if (user) {
             console.log('User is signed in:', user.email);
-            loadDashboardData();
         } else {
             console.log('User is signed out');
             // Redirect to login if on admin page
@@ -316,7 +315,7 @@ function displayProjectDetail(project) {
             <h1>${project.title}</h1>
             <p class="project-category">${getCategoryDisplayName(project.category)}</p>
             <div class="project-meta">
-                <span class="project-date">Created: ${new Date(project.createdAt).toLocaleDateString()}</span>
+                <span class="project-date">Created: ${new Date(project.createdAt.toDate()).toLocaleDateString()}</span>
                 ${project.featured ? '<span class="featured-badge">Featured</span>' : ''}
             </div>
         </div>
@@ -543,7 +542,6 @@ function displayProjectComments(comments) {
 
 // Initialize About Page
 function initializeAboutPage() {
-    // About page specific functionality can be added here
     initializeSkillAnimations();
 }
 
@@ -981,7 +979,7 @@ function loadDummyProjectDetail(projectId) {
         image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop',
         images: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop,https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
         featured: true,
-        createdAt: new Date('2024-01-15')
+        createdAt: { toDate: () => new Date('2024-01-15') }
     };
     
     displayProjectDetail(dummyProject);

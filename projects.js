@@ -28,7 +28,7 @@ function displayAllProjects(projectsToShow) {
     if (!grid) return;
 
     if (projectsToShow.length === 0) {
-        grid.innerHTML = '<p>No projects available.</p>';
+        grid.innerHTML = '<div class="no-projects"><p>No projects found matching your criteria.</p></div>';
         return;
     }
 
@@ -38,7 +38,11 @@ function displayAllProjects(projectsToShow) {
             <div class="project-content">
                 <h3 class="project-title">${project.title}</h3>
                 <p class="project-category">${getCategoryDisplayName(project.category)}</p>
-                <p class="project-description">${project.description.substring(0, 100)}...</p>
+                <p class="project-description">${project.description.substring(0, 150)}...</p>
+                <div class="project-meta">
+                    <span class="project-date">Created: ${new Date(project.createdAt.toDate()).toLocaleDateString()}</span>
+                    ${project.featured ? '<span class="featured-badge">Featured</span>' : ''}
+                </div>
             </div>
         </div>
     `).join('');
@@ -89,83 +93,99 @@ function openProjectDetail(projectId) {
     window.location.href = `project-detail.html?id=${projectId}`;
 }
 
-// Load Dummy Projects (fallback when Firebase is not configured)
+// Load Dummy Projects (for when Firebase is not configured)
 function loadDummyProjects() {
     const dummyProjects = [
         {
             id: '1',
             title: 'E-Commerce Platform',
             category: 'web',
-            description: 'A modern e-commerce platform built with React and Node.js, featuring real-time inventory management and secure payment processing.',
+            description: 'A modern e-commerce platform built with React and Node.js, featuring real-time inventory management and secure payment processing. This project showcases advanced web development techniques including state management, API integration, and responsive design.',
             image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop',
             featured: true,
-            createdAt: new Date('2024-01-15')
+            createdAt: { toDate: () => new Date('2024-01-15') }
         },
         {
             id: '2',
             title: 'Mobile Banking App',
             category: 'mobile',
-            description: 'A secure mobile banking application with biometric authentication and real-time transaction monitoring.',
+            description: 'A secure mobile banking application with biometric authentication and real-time transaction monitoring. Built with React Native and integrated with banking APIs for secure financial transactions.',
             image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop',
             featured: true,
-            createdAt: new Date('2024-02-20')
+            createdAt: { toDate: () => new Date('2024-02-20') }
         },
         {
             id: '3',
             title: 'Portfolio Website Design',
             category: 'design',
-            description: 'A clean and modern portfolio website design with smooth animations and responsive layout.',
+            description: 'A clean and modern portfolio website design with smooth animations and responsive layout. Created using Figma and implemented with modern CSS techniques and JavaScript interactions.',
             image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&h=300&fit=crop',
             featured: true,
-            createdAt: new Date('2024-03-10')
+            createdAt: { toDate: () => new Date('2024-03-10') }
         },
         {
             id: '4',
             title: 'Task Management System',
             category: 'fullstack',
-            description: 'A comprehensive task management system with team collaboration features and project tracking.',
+            description: 'A comprehensive task management system with team collaboration features and project tracking. Built with MERN stack featuring real-time updates, file sharing, and team communication tools.',
             image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop',
             featured: false,
-            createdAt: new Date('2024-04-05')
+            createdAt: { toDate: () => new Date('2024-04-05') }
         },
         {
             id: '5',
             title: 'Restaurant Ordering App',
             category: 'mobile',
-            description: 'A mobile app for restaurant ordering with real-time order tracking and payment integration.',
+            description: 'A mobile app for restaurant ordering with real-time order tracking and payment integration. Features include menu browsing, custom orders, delivery tracking, and multiple payment options.',
             image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=300&fit=crop',
             featured: false,
-            createdAt: new Date('2024-05-12')
+            createdAt: { toDate: () => new Date('2024-05-12') }
         },
         {
             id: '6',
             title: 'Analytics Dashboard',
             category: 'web',
-            description: 'A data visualization dashboard with interactive charts and real-time analytics.',
+            description: 'A data visualization dashboard with interactive charts and real-time analytics. Built with D3.js and Chart.js for comprehensive data analysis and business intelligence reporting.',
             image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
             featured: false,
-            createdAt: new Date('2024-06-18')
+            createdAt: { toDate: () => new Date('2024-06-18') }
         },
         {
             id: '7',
-            title: 'Social Media Platform',
-            category: 'fullstack',
-            description: 'A social media platform with real-time messaging, content sharing, and user engagement features.',
+            title: 'Social Media App',
+            category: 'mobile',
+            description: 'A social media application with photo sharing, stories, and messaging features. Built with React Native and Firebase for real-time communication and content sharing.',
             image: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=400&h=300&fit=crop',
             featured: false,
-            createdAt: new Date('2024-07-25')
+            createdAt: { toDate: () => new Date('2024-07-22') }
         },
         {
             id: '8',
-            title: 'Fitness Tracking App',
-            category: 'mobile',
-            description: 'A comprehensive fitness tracking app with workout plans, progress monitoring, and social features.',
-            image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+            title: 'E-Learning Platform',
+            category: 'web',
+            description: 'An online learning platform with video streaming, quizzes, and progress tracking. Features include course management, student dashboards, and instructor tools.',
+            image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop',
             featured: false,
-            createdAt: new Date('2024-08-30')
+            createdAt: { toDate: () => new Date('2024-08-15') }
         }
     ];
     
     projects = dummyProjects;
     displayAllProjects(dummyProjects);
 }
+
+// Add CSS for no projects message
+const style = document.createElement('style');
+style.textContent = `
+    .no-projects {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 3rem;
+        color: #6b7280;
+    }
+    
+    .no-projects p {
+        font-size: 1.2rem;
+    }
+`;
+document.head.appendChild(style);
